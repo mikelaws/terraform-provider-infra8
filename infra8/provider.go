@@ -1,4 +1,4 @@
-package cloudforms
+package infra8
 
 import (
 	"log"

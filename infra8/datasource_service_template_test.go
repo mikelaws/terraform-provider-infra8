@@ -1,4 +1,4 @@
-package cloudforms
+package infra8
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ func TestAccDataSourceTemplate_basic(t *testing.T) {
 			resource.TestStep{
 				Config: testAccCheckDataTemplateConfigTemplateName(),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("data.cloudforms_service_template.mytemplate", "name", os.Getenv("CF_TEMPLATE_NAME")),
+					resource.TestCheckResourceAttr("data.infra8_service_template.mytemplate", "name", os.Getenv("CF_TEMPLATE_NAME")),
 				),
 			},
 		},
@@ -51,13 +51,13 @@ func testAccDataSourceTemplate(src, n string) resource.TestCheckFunc {
 
 func testAccCheckDataTemplateConfigTemplateName() string {
 	return fmt.Sprintf(`
-	provider "cloudforms" {
+	provider "infra8" {
 		user_name  = "%s"
 		password = "%s"
 		ip       = "%s"
 	  }
 
-	data  "cloudforms_service_template" "mytemplate"{
+	data  "infra8_service_template" "mytemplate"{
 		name = "%s"
 	}
 	`, os.Getenv("CF_USER_NAME"),

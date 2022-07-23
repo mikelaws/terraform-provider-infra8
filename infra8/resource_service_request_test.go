@@ -1,4 +1,4 @@
-package cloudforms
+package infra8
 
 import (
 	"encoding/json"
@@ -52,7 +52,7 @@ func TestAccServiceRequest_Basic(t *testing.T) {
 			resource.TestStep{
 				Config: testAccCheckServiceConfig(),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckServiceExists("cloudforms_service_request.test"),
+					testAccCheckServiceExists("infra8_service_request.test"),
 				),
 			},
 		},
@@ -89,24 +89,24 @@ func testAccCheckServiceExists(n string) resource.TestCheckFunc {
 }
 func testAccCheckServiceConfig() string {
 	return fmt.Sprintf(`
-	provider "cloudforms" {
+	provider "infra8" {
 	ip       = "%s"  
 	user_name  = "%s"
 	password = "%s"
 	  
 	}
 
-	# Data Source cloudforms_service_template
-	data "cloudforms_service_template" "mytemplate"{
+	# Data Source infra8_service_template
+	data "infra8_service_template" "mytemplate"{
 		name = "%s"
 	}
 	
 
-	# Resource cloudforms_service_request
-	resource "cloudforms_service_request" "test" {  
+	# Resource infra8_service_request
+	resource "infra8_service_request" "test" {  
 		name = "%s"
-		template_href = "${data.cloudforms_service_template.mytemplate.href}"
-		catalog_id ="${data.cloudforms_service_template.mytemplate.service_template_catalog_id}"
+		template_href = "${data.infra8_service_template.mytemplate.href}"
+		catalog_id ="${data.infra8_service_template.mytemplate.service_template_catalog_id}"
 		input_file_name = "%s"
 		time_out= 50
 	} 

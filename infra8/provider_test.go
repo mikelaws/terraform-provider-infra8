@@ -1,4 +1,4 @@
-package cloudforms
+package infra8
 
 import (
 	"os"
@@ -14,7 +14,7 @@ var testAccProvider *schema.Provider
 func init() {
 	testAccProvider = Provider().(*schema.Provider)
 	testAccProviders = map[string]terraform.ResourceProvider{
-		"cloudforms": testAccProvider,
+		"infra8": testAccProvider,
 	}
 }
 
