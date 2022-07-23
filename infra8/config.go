@@ -8,10 +8,9 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-        "diag"
 )
 
-// Config : Configuration required for provider connection
+// Config: Configuration structure required for provider connection
 type Config struct {
 	IP       string
 	Username string
@@ -19,7 +18,7 @@ type Config struct {
 }
 
 // CFConnect : will create client struct for connection
-func CFConnect(d *schema.ResourceData) (interface{}, diag.Diagnostics) {
+func CFConnect(d *schema.ResourceData) (interface{}, error) {
 
 	ip := d.Get("ip").(string)
 	// Check If field is not empty

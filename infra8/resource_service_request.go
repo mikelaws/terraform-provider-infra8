@@ -109,7 +109,7 @@ func resourceServiceRequestCreate(d *schema.ResourceData, meta interface{}) erro
 
 	// check for timeout
 	if timeout == 0 {
-		return checkrequestStatus(d, config, requestID, 180)
+		return checkrequestStatus(d, config, requestID, 1800)
 	} else {
 		return checkrequestStatus(d, config, requestID, timeout)
 	}
