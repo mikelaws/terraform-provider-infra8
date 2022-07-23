@@ -3,22 +3,23 @@ package infra8
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
+        "diag"
 )
 
 // Config : Configuration required for provider connection
 type Config struct {
 	IP       string
-	UserName string
+	Username string
 	Password string
 }
 
 // CFConnect : will create client struct for connection
-func CFConnect(d *schema.ResourceData) (interface{}, error) {
+func CFConnect(d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 
 	ip := d.Get("ip").(string)
 	// Check If field is not empty
@@ -40,7 +41,7 @@ func CFConnect(d *schema.ResourceData) (interface{}, error) {
 
 	config := Config{
 		IP:       ip,
-		UserName: username,
+		Username: username,
 		Password: password,
 	}
 	return config, nil
@@ -49,7 +50,7 @@ func CFConnect(d *schema.ResourceData) (interface{}, error) {
 // GetResponse : This function will return api response
 func (c *Config) GetResponse(request *http.Request) ([]byte, error) {
 
-	token, err := GetToken(c.IP, c.UserName, c.Password)
+	token, err := GetToken(c.IP, c.Username, c.Password)
 	if err != nil {
 		log.Println("[ERROR] Error in getting token")
 		return nil, err
@@ -57,7 +58,7 @@ func (c *Config) GetResponse(request *http.Request) ([]byte, error) {
 
 	// While authenticating with Token
 	// it is necessary to provide user-group
-	group, err := GetGroup(c.IP, c.UserName, c.Password)
+	group, err := GetGroup(c.IP, c.Username, c.Password)
 	if err != nil {
 		log.Println("[ERROR] Error in getting User group")
 		return nil, err

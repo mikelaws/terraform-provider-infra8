@@ -31,7 +31,7 @@ func GetServiceCatalog(config Config) ([]byte, error) {
 // GetQueryResponse : Will return response with Query parameters
 func (c *Config) GetQueryResponse(request *http.Request, expand string, attribute string, filter string) ([]byte, error) {
 
-	token, err := GetToken(c.IP, c.UserName, c.Password)
+	token, err := GetToken(c.IP, c.Username, c.Password)
 	if err != nil {
 		log.Println("[ERROR] Error in getting token")
 		return nil, err
@@ -39,7 +39,7 @@ func (c *Config) GetQueryResponse(request *http.Request, expand string, attribut
 
 	// While authenticating with Token
 	// it is necessary to provide user-group
-	group, err := GetGroup(c.IP, c.UserName, c.Password)
+	group, err := GetGroup(c.IP, c.Username, c.Password)
 	if err != nil {
 		log.Println("[ERROR] Error in getting User group")
 		return nil, err

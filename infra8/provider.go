@@ -1,19 +1,18 @@
 package infra8
 
 import (
+	"context"
 	"log"
-	"os"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Provider : Defines provider schema
 // Contains registry of Data sources and Resources
-func Provider() terraform.ResourceProvider {
+func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-
 			"ip": {
 				Type:        schema.TypeString,
 				Required:    true,
@@ -43,21 +42,25 @@ func Provider() terraform.ResourceProvider {
 			"infra8_service":          dataSourceServiceDetail(),
 			"infra8_service_template": dataSourceServiceTemplate(),
 		},
+
 		//Supported Resources by this provider
 		ResourcesMap: map[string]*schema.Resource{
 			"infra8_service_request": resourceServiceRequest(),
 		},
-		ConfigureFunc: providerConfigure,
+
+		//Provider configuration
+		ConfigureContextFunc: providerConfigure,
 	}
 }
 
 // providerConfigure : This funtion will read provider module form '.tf' file store data into config structure
-func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
 	config, err := CFConnect(d)
 	if err != nil {
-		log.Println("[ERROR] Failed to Establish Connection")
-		os.Exit(1)
+		return nil, diag.FromErr(err)
 	}
 	log.Println("[DEBUG] Connecting to Cloudforms...")
-	return config, nil
+	return config, diags
 }
