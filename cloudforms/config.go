@@ -3,7 +3,7 @@ package cloudforms
 import (
 	"crypto/tls"
 	"fmt"
-        "github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"io/ioutil"
 	"log"
 	"net/http"

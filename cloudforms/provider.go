@@ -3,7 +3,6 @@ package cloudforms
 import (
 	"log"
 	"os"
-	"flag"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"

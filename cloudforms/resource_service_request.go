@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-        "github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/tidwall/gjson"
 )
 
