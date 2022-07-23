@@ -40,12 +40,12 @@ func Provider() terraform.ResourceProvider {
 
 		//Supported Data Source by this provider
 		DataSourcesMap: map[string]*schema.Resource{
-			"cloudforms_service":          dataSourceServiceDetail(),
-			"cloudforms_service_template": dataSourceServiceTemplate(),
+			"infra8_service":          dataSourceServiceDetail(),
+			"infra8_service_template": dataSourceServiceTemplate(),
 		},
 		//Supported Resources by this provider
 		ResourcesMap: map[string]*schema.Resource{
-			"cloudforms_service_request": resourceServiceRequest(),
+			"infra8_service_request": resourceServiceRequest(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
